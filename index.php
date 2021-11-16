@@ -1,14 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$name = "addressbook";
-
-$conn = new mysqli($servername, $username, $password, $name);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include('./dbConn.php');
 
 $msg = "";
 
@@ -19,16 +10,16 @@ if (isset($_POST['submit'])) {
     $address1 = $_POST['address1'];
     $address2 = $_POST['address2'];
     $city = $_POST['city'];
-    $state = $_POST['desig'];
+    $state = $_POST['state'];
     $email = $_POST['emailadd'];
 
-    $sql = "INSERT INTO addressbook VALUES ('.$fname.','.$desig.','.$address1.','.$address2.','.$city.','.$state.','.$email.')";
+    $sql = "INSERT INTO addressbook VALUES ('$fname','$desig','$address1','$address2','$city','$state','$email')";
 
 
     if ($conn->query($sql) === TRUE) {
         $msg = "Added successfully";
     } else {
-        $msg = "Error occured";
+        $msg = "";
     }
 }
 
@@ -115,7 +106,7 @@ if (isset($_POST['submit'])) {
 
         .abs {
             position: absolute;
-            top: 200px;
+            top: 100px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -131,7 +122,7 @@ if (isset($_POST['submit'])) {
             <h2 class="title">Get Address</h2>
             <form action="./address.php" method="get" class="search-form">
                 <input type="email" name="emailsearch" id="emailsearch" placeholder="Enter EmailId to get address">
-                <input type="submit" id="search" value="SEARCH">
+                <input type="submit" id="search" name='search' value="SEARCH">
             </form>
         </section>
         <section class="left">
